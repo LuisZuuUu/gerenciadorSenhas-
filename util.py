@@ -1,11 +1,12 @@
-import sqlite3 as sql
+import sqlite3
 import os
 import string
 import random
+import tkinter as tk 
 
 caminho = os.path.join(os.getcwd(), "senhas.db")
 caracteres = string.ascii_letters + string.digits + string.punctuation 
-conexao = sql.connect(caminho)
+conexao = sqlite3.connect(caminho)
 cursor = conexao.cursor()
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS senhas(
@@ -20,11 +21,16 @@ def gerar_senha(tamanho):
     senha = []
     for i in range(tamanho + 1):
         senha.append(random.choice(caracteres))
-    return ''.join(senha)
+    print(''.join(senha))
 
 def guardar_informacoes(site, login, senha):
     cursor.execute('''INSERT INTO senhas VALUES(?, ?, ?)''', (site, login, senha))
 
+    
+
+def entrada(janela):
+    entrada = tk.Entry(janela)
+    entrada.pack()
 
 
 
