@@ -17,20 +17,20 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS senhas(
 
 
 
+
 def gerar_senha(tamanho):
     senha = []
     for i in range(tamanho + 1):
         senha.append(random.choice(caracteres))
     print(''.join(senha))
 
-def guardar_informacoes(site, login, senha):
+def guardar_informacoes(site, login, senha):  
     cursor.execute('''INSERT INTO senhas VALUES(?, ?, ?)''', (site, login, senha))
-
-    
 
 def entrada(janela):
     entrada = tk.Entry(janela)
     entrada.pack()
+    return entrada.get()
 
 
 

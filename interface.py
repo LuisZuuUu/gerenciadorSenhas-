@@ -5,10 +5,17 @@ janela = tk.Tk()
 janela.title("Gerenciador de Senhas")
 janela.geometry("500x400")
 
-tk.Label(janela, text='Escolha uma opção', font=('Arial', 15)).pack()
+
+# TELA INICIAL 
+
+tela_inicial = tk.Frame(janela)
+tela_inicial.pack()
+
+tk.Label(tela_inicial, text='Escolha uma opção', font=('Arial', 15)).pack()
 
 
-tk.Button(janela, text='Gerar senha', command=util.gerar_senha).pack()
+tk.Button(tela_inicial, text='' 
+'').pack()
 
 
 
