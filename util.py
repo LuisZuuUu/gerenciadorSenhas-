@@ -30,6 +30,11 @@ CREATE TABLE IF NOT EXISTS senhas(
 )
 ''')
 
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS usuarios(
+    login_app TEXT NOT NULL,
+    senha_app TEXT NOT NULL)
+''')
 
 def gerarSenha(tamanho):
     senha = ''.join(choice(caracteres) for _ in range(tamanho))
@@ -38,7 +43,7 @@ def gerarSenha(tamanho):
 
 def guardarInformacoes(site, login, senha):
     cursor.execute(
-        '''INSERT INTO senhas VALUES(?, ?, ?)''',
+        '''INSERT INTO senhas (site, login, senha) VALUES(?, ?, ?)''',
         (site, login, senha)
     )
 
@@ -76,10 +81,15 @@ def cadastrarUsuario(nome, senha):
         if not senha2.winfo_ismapped():    
             senha2.pack()
     
-        if senha2.get() == senha:
-            usuarios[nome] = senha
+    if senha2.get() == senha:
+        cursor.execute('''INSERT INTO usuarios (login_app, senha_app) VALUES (?, ?)''', nome, senha)
+        conexao.commit()
+
     
+    botao2.config(command=lambda: telaInicial.pack_forget())
     botao2.pack()
+
+
 
     
 
@@ -88,7 +98,10 @@ def cadastrarUsuario(nome, senha):
 
 # CODIGO PRINCIPAL
 if __name__ == '__main__':
-    
+    lambda: (guardarInformacoes('oi', 'tchau', 'ate'))
+    conexao.commit()
+    conexao.close()
+
     janela = tk.Tk()
     janela.title("Gerenciador de Senhas")
     janela.geometry("300x200")
@@ -144,5 +157,7 @@ if __name__ == '__main__':
         )
     )
     botao2.pack()
+    lambda: (guardarInformacoes('oi', 'tchau', 'ate'))
+    
 
     janela.mainloop()
