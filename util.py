@@ -15,15 +15,7 @@ class Frame(tk.Frame):
         return widget(self, **opcoes)
 
 
-#class Usuario():
-#    def __init__(self, usuario, senha):
-#        cursor.execute(
-#        '''INSERT INTO usuarios (login_app, senha_app) VALUES(?, ?)''',
-#        (usuario, senha)
-#   )
-#        conexao.commit()
-    
-#    def modificarUsuario():
+
 
 
 # VARIAVEIS E FUNCOES ESTATICAS
@@ -35,21 +27,18 @@ janela = tk.Tk()
 janela.title("Gerenciador de Senhas")
 janela.geometry("350x200")
 janela.maxsize(350, 200)
-cursor.execute(f'''SELECT * from senhas WHERE senha = "juju"''')
-tels = cursor.fetchall()
-print(tels)
+
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS senhas(
-    id 
+    CONSTRAINT fk_id FOREING KEY (id_usuario) REFERENCES usuarios(id) on DELETE CASCADE,   
     site TEXT NOT NULL,
     login TEXT NOT NULL,
-    senha TEXT NOT NULL,
-)
+    senha TEXT NOT NULL)
 ''')
 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS usuarios(
-    id PRIMARY KEY AUTOINCREMENT, 
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
     login_app TEXT NOT NULL,
     senha_app TEXT NOT NULL)
 ''')
