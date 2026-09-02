@@ -14,8 +14,8 @@ class Frame(CTkFrame):
     def __init__(self, window):
         super().__init__(window)
 
-    def widget(self, type, **atbs):
-        return type(self, **atbs)
+    def widget(self, widget, **atbs):
+        return widget(self, **atbs)
 
 loginWindow= Window("400x300", "Teste")
 
