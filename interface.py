@@ -1,50 +1,60 @@
 from customtkinter import * 
-import dataBaser 
+import user
 
-
-class windowLogin(CTk):
+class Window(CTk):
     def __init__(self, title=str, geometry=str):
         super().__init__()
         self.title(title)
         self.geometry(geometry) 
-        self.current = None
-        self.frame = self.Frame(self)
 
 class Frame(CTkFrame):
-        
-    current = False
 
     def __init__(self, master, **atbs):
         super().__init__(master, **atbs)
 
 
-    def widget(self, widget, **atbs):
-        return widget(self, **atbs)
+    def button(self, **atbs):
+        return CTkButton(self, corner_radius=10, fg_color="#9D0CFD", border_width=1, border_color="#9D0CFD", **atbs)
 
-    def changeFrame(self, frameIn=None, **atbs):
-        if frameIn is not None:
-            frameIn.grid(**atbs)
-            self.grid_forget()
-        else:
-            self.grid(**atbs)
+    def entry(self, **atbs):
+        return CTkEntry(self, corner_radius=10, fg_color="transparent", border_width=1, **atbs)
+
+    def label(self, **atbs):
+        return CTkLabel(self, **atbs)
+
+
 
     
-windowLogin = Window("Gerenciador Senhas", "400x200")
-windowLogin.maxsize(400, 200)
-windowLogin.resizable(width=False, height=False)
 
-# TELA INICIAL 
-frameLogin = Window.Frame(windowLogin)
-frameLogin.grid()
 
-frameLogin.widget(CTkLabel, text="Login", height=5, width=40).grid()
-loginUser = frameLogin.widget(CTkEntry)
-loginUser.grid()
+# TELA INICIAL
 
-windowLogin.mainloop()
+loginWindow = Window("Gerenciador Senhas", "400x300")
+loginWindow.resizable(width=False, height=False)
+
+frameLogin = Frame(loginWindow)
+frameLogin.pack(fill=BOTH, expand=True)
+
+login = frameLogin.entry(placeholder_text="login")
+login.place(relx=1, x=-200,y=80, anchor=CENTER)
+password = frameLogin.entry(placeholder_text="senha")
+password.place(relx=1, x=-200, y=110, anchor=CENTER)
+
+frameLogin.button(text="entrar", width=100,command=lambda:user.userTemporary(login.get(), password.get())).place(relx=1, x=-200, y=145, anchor=CENTER)
+frameLogin.label(text="Não tem cadastro?").place(relx=1, x=-200, y=190, anchor=CENTER)
+frameLogin.button(text="cadastrar", width=100).place(relx=1, x=-200, y=215, anchor=CENTER)
+
+
 
 
 
 
 
 loginWindow.mainloop()
+
+
+
+
+
+
+

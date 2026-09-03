@@ -1,6 +1,6 @@
 import dataBaser as db 
 from argon2 import PasswordHasher
-
+import interface 
 ph = PasswordHasher()
 
 
@@ -14,7 +14,7 @@ class UserLoggedIn:
         self.id = id
         self.login = login 
         self.password = password
-        self.authenticate = status
+        self.authenticate = False
 
     @classmethod
     def authenticateUser(cls, login, password):
@@ -57,8 +57,15 @@ class UserLoggedIn:
         except Exception as e:
             print(f"Erro: {e}")
 
-    
-        
-
-
-
+user = None  
+def userTemporary(login, password):
+    global user
+    try:
+        temporary = UserLoggedIn.authenticateUser(login, password)
+        if user.authenticate:
+            user = temporary
+            print('ihul')
+    except Exception as e:
+        print(f"error: {e}")
+        text = interface.frameLogin.label(text="Senha ou login errados").place(relx=1, x=-200, y=115, anchor=interface.CENTER)
+        interface.frameLogin.after(1, text.place_forget())
