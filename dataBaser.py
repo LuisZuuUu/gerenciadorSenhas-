@@ -16,11 +16,11 @@ try:
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS LoginsApp (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        app TEXT NOT NULL, 
-        login TEXT NOT NULL UNIQUE, 
+        app TEXT NOT NULL UNIQUE, 
+        login TEXT NOT NULL, 
         password TEXT NOT NULL,
-        relationfk INTEGER NOT NULL, 
-        FOREIGN KEY(relationfk) REFERENCES LoginsManager(id) ON DELETE CASCADE)""")
+        idUser INTEGER NOT NULL, 
+        FOREIGN KEY(idUser) REFERENCES LoginsManager(id) ON DELETE CASCADE)""")
 
     conn.commit()
     print("Conectado ao banco de dados")
