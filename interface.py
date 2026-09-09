@@ -225,7 +225,7 @@ class HomeWindow(CTkToplevel):
                 appg = app.get()
                 loging = login.get() 
                 passwordg = password.get()
-                row =(appg.strip().captalize(), loging.strip(), passwordg)
+                row =(appg.strip().capitalize(), loging.strip(), passwordg)
                 valid = self.previous.currentUser.addData(row)
                 if valid:
                     self.updateData()
