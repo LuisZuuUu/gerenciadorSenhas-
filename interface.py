@@ -129,7 +129,7 @@ class HomeWindow(CTkToplevel):
 
     def table(self):
         if loginWindow.currentUser:
-            data = loginWindow.currentUser.getData(loginWindow.currentUser.id)
+            data = self.previous.currentUser.getData(loginWindow.currentUser.id)
             self.frameScroll = CTkScrollableFrame(self)
             self.frameScroll.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
             self.frameScroll.columnconfigure(0, weight=1)
@@ -199,7 +199,7 @@ class HomeWindow(CTkToplevel):
     def delete(self, row):
         boxConfirmation = CTkInputDialog(text="Confirme a senha para deletar", title="Confirmação")
         if boxConfirmation.get_input() == row[2]:
-            loginWindow.currentUser.deleteData(row)
+            self.previous.currentUser.deleteData(row)
             self.updateData()
 
     def updateData(self):
@@ -226,7 +226,7 @@ class HomeWindow(CTkToplevel):
                 loging = login.get() 
                 passwordg = password.get()
                 row =(appg.strip().captalize(), loging.strip(), passwordg)
-                valid = loginWindow.currentUser.addData(row)
+                valid = self.previous.currentUser.addData(row)
                 if valid:
                     self.updateData()
             except:
