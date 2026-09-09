@@ -64,9 +64,24 @@ class UserLoggedIn:
 
     def getData(self, id):
         try:
-           db.cursor.execute("SELECT app, login, password FROM LoginsApp WHERE id = ?", (id,))
+           db.cursor.execute("SELECT app, login, password FROM LoginsApp WHERE idUser = ?", (id,))
            return db.cursor.fetchall() 
         except Exception as e:
             print(f"Erro: {e}")
 
+    def deleteData(self, row):
+        db.cursor.execute("DELETE FROM LoginsApp WHERE app = ? and login = ? and password = ?", row)
+        db.conn.commit()
+
+    def addData(self, row):
+        try:
+            row = list(row) 
+            row.append(self.id)
+            row = tuple(row)
+            db.cursor.execute("INSERT INTO LoginsApp (app, login, password, idUser) VALUES (?, ?, ?, ?)", row)
+            db.conn.commit()
+            return True
+        except Exception as e:
+            print(f"error {e}")
+  #
 
